@@ -1,0 +1,263 @@
+:root {
+  --bg: #0e1117;
+  --muted: #161b22;
+  --text: #e6edf3;
+  --sub: #9da5b4;
+  --brand: #2ea043;
+  --brand-2: #238636;
+  --link: #58a6ff;
+  --border: #30363d;
+  --max: 1080px;
+}
+
+/* Light Mode Variables */
+.light-mode {
+  --bg: #ffffff;
+  --muted: #f5f5f5;
+  --text: #222222;
+  --sub: #666666;
+  --brand: #2ea043;
+  --brand-2: #238636;
+  --link: #0066cc;
+  --border: #dddddd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    'Helvetica Neue',
+    Arial,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background: linear-gradient(180deg,
+      rgba(46, 160, 67, 0.12),
+      transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.brand h1 {
+  font-size: 26px;
+  margin: 0;
+}
+
+.menu a {
+  margin: 0 10px;
+  color: var(--text);
+}
+
+.hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 56px 16px 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+}
+
+.hero h2 {
+  font-size: 40px;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+.hero p {
+  color: var(--sub);
+  margin: 0 0 20px;
+}
+
+.cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: var(--link);
+  border-color: var(--brand-2);
+}
+
+.btn.primary:hover {
+  background: var(--brand-2);
+}
+
+.card {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+h3 {
+  margin: 0 0 10px;
+}
+
+.kpis {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  flex: 1 1 160px;
+  border: 1px solid var(--border);
+  background: transparent;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.kpi .value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.socials a {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 16px;
+  color: var(--sub);
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+/* WhatsApp Floating Button */
+.wa-float {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #25d366;
+  color: #fff;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  border: 0;
+  cursor: pointer;
+}
+
+.logo {
+  height: 56px;
+  border-radius: 50px;
+}
+
+.wa-float:hover {
+  filter: brightness(0.95);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
