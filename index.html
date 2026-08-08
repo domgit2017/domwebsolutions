@@ -32,6 +32,15 @@
     <link rel="apple-touch-icon" href="images/favicon.png" />
 
     <!-- Stylesheet -->
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem('theme');
+        document.documentElement.setAttribute(
+          'data-theme',
+          savedTheme || 'dark',
+        );
+      })();
+    </script>
     <link rel="stylesheet" href="styles/general.css" />
 
     <link
@@ -64,7 +73,7 @@
         </nav>
 
         <button id="theme-toggle" aria-label="Toggle dark and light mode">
-          <i class="fa-solid fa-moon"></i>
+          <i class="fa-solid fa-sun"></i>
         </button>
       </div>
     </header>
