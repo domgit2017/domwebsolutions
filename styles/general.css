@@ -17,7 +17,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, .15);
   --shadow-md: 0 8px 25px rgba(0, 0, 0, .2);
   --shadow-lg: 0 15px 40px rgba(0, 0, 0, .25);
-  --transition: .3s ease;
+  --transition: .3s ease
 }
 
 html[data-theme="light"] {
@@ -32,11 +32,10 @@ html[data-theme="light"] {
   --tag-bg: #e0f2fe;
   --tag-text: #0369a1;
   --overlay: rgba(255, 255, 255, .92);
-  --input: #fff;
+  --input: #fff
 }
 
 /* Reset */
-
 *,
 *::before,
 *::after {
@@ -47,7 +46,7 @@ html[data-theme="light"] {
 
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
 }
 
 body {
@@ -56,18 +55,18 @@ body {
   color: var(--text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.7;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition)
 }
 
 .header-logo {
   height: 50px;
-  border-radius: 25px;
+  border-radius: 25px
 }
 
 .header-logo:hover {
   opacity: 9px;
   border: 1px dotted red;
-  cursor: pointer;
+  cursor: pointer
 }
 
 h1,
@@ -78,7 +77,7 @@ h5,
 h6 {
   color: var(--text);
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 700
 }
 
 p {
@@ -89,12 +88,12 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 img {
   display: block;
-  max-width: 100%;
+  max-width: 100%
 }
 
 button {
@@ -102,7 +101,7 @@ button {
   background: none;
   color: inherit;
   cursor: pointer;
-  font: inherit;
+  font: inherit
 }
 
 input,
@@ -117,7 +116,7 @@ textarea {
 
 .container {
   width: min(var(--container), 92%);
-  margin-inline: auto;
+  margin-inline: auto
 }
 
 section {
@@ -127,16 +126,15 @@ section {
 section h2 {
   margin-bottom: 15px;
   text-align: center;
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(2rem, 5vw, 2.8rem)
 }
 
 :focus-visible {
   outline: 3px solid var(--primary);
-  outline-offset: 3px;
+  outline-offset: 3px
 }
 
 /* Navbar */
-
 .navbar {
   position: fixed;
   inset: 0 0 auto;
@@ -144,20 +142,20 @@ section h2 {
   width: 100%;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px)
 }
 
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 78px;
+  min-height: 78px
 }
 
 .logo {
   font-size: 1.65rem;
   font-weight: 800;
-  letter-spacing: .5px;
+  letter-spacing: .5px
 }
 
 .logo span {
@@ -167,13 +165,13 @@ section h2 {
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2rem
 }
 
 .nav-link {
   position: relative;
   padding: 4px 0;
-  font-weight: 600;
+  font-weight: 600
 }
 
 .nav-link:hover {
@@ -188,7 +186,7 @@ section h2 {
   width: 0;
   height: 2px;
   background: var(--primary);
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .nav-link:hover::after {
@@ -198,7 +196,7 @@ section h2 {
 .mobile-menu-btn {
   display: none;
   color: var(--text);
-  font-size: 1.6rem;
+  font-size: 1.6rem
 }
 
 .mobile-menu-btn:hover,
@@ -209,7 +207,7 @@ section h2 {
 #theme-toggle {
   color: var(--text);
   font-size: 1.2rem;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 #theme-toggle:hover {
@@ -217,28 +215,27 @@ section h2 {
 }
 
 /* Hero */
-
 .hero {
   padding: 170px 0 120px;
   text-align: center;
-  background: radial-gradient(circle at top, var(--card), var(--bg) 70%);
+  background: radial-gradient(circle at top, var(--card), var(--bg) 70%)
 }
 
 .hero-content {
   max-width: 900px;
-  margin: auto;
+  margin: auto
 }
 
 .hero-content h1 {
   margin-bottom: 25px;
   font-size: clamp(2.5rem, 6vw, 4.3rem);
-  font-weight: 800;
+  font-weight: 800
 }
 
 .hero-content p {
   max-width: 760px;
   margin: 0 auto 40px;
-  font-size: 1.15rem;
+  font-size: 1.15rem
 }
 
 .hero-buttons {
@@ -246,11 +243,10 @@ section h2 {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-wrap: wrap
 }
 
 /* Buttons */
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -259,35 +255,34 @@ section h2 {
   padding: 15px 32px;
   border-radius: 8px;
   font-weight: 700;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .primary-btn {
   background: var(--primary);
   color: #fff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm)
 }
 
 .primary-btn:hover {
   background: var(--primary-hover);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md)
 }
 
 .secondary-btn {
   border: 2px solid var(--border);
-  color: var(--text);
+  color: var(--text)
 }
 
 .secondary-btn:hover {
   background: var(--card);
   border-color: var(--primary);
   color: var(--primary);
-  transform: translateY(-4px);
+  transform: translateY(-4px)
 }
 
-/* Services & Cards */
-
+/* Services */
 .services,
 .about {
   background: var(--secondary)
@@ -297,11 +292,11 @@ section h2 {
 .portfolio-grid {
   display: grid;
   gap: 2rem;
-  margin-top: 3rem;
+  margin-top: 3rem
 }
 
 .services-grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
 }
 
 .card,
@@ -310,14 +305,14 @@ section h2 {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   animation: fadeUp .8s ease both;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .card {
   position: relative;
   overflow: hidden;
   padding: 2.5rem 2rem;
-  text-align: center;
+  text-align: center
 }
 
 .card::before {
@@ -328,7 +323,7 @@ section h2 {
   width: 100%;
   height: 4px;
   background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  transition: .6s;
+  transition: .6s
 }
 
 .card:hover::before {
@@ -339,14 +334,14 @@ section h2 {
 .portfolio-card:hover {
   transform: translateY(-10px);
   border-color: var(--primary);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md)
 }
 
 .card i {
   margin-bottom: 1.3rem;
   color: var(--primary);
   font-size: 3rem;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .card:hover i {
@@ -355,18 +350,17 @@ section h2 {
 
 .card h3 {
   margin-bottom: 1rem;
-  font-size: 1.45rem;
+  font-size: 1.45rem
 }
 
 /* Portfolio */
-
 .portfolio {
   background: var(--bg)
 }
 
 .portfolio-grid {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
+  gap: 2.5rem
 }
 
 .portfolio-card {
@@ -376,8 +370,8 @@ section h2 {
 .portfolio-image-wrapper {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px 14px 0 0;
+  aspect-ratio: 16/9;
+  border-radius: 14px 14px 0 0
 }
 
 .portfolio-image-placeholder {
@@ -387,14 +381,14 @@ section h2 {
   width: 100%;
   height: 100%;
   background: var(--placeholder);
-  transition: .5s ease;
+  transition: .5s ease
 }
 
 .portfolio-image-placeholder i {
   color: var(--primary);
   font-size: 4rem;
   opacity: .65;
-  transition: .45s ease;
+  transition: .45s ease
 }
 
 .portfolio-image-wrapper img {
@@ -403,11 +397,11 @@ section h2 {
   height: 100%;
   object-fit: cover;
   object-position: top;
-  transition: transform .4s ease;
+  transition: transform .4s ease
 }
 
 .portfolio-card:hover .portfolio-image-wrapper img {
-  transform: scale(1.04);
+  transform: scale(1.04)
 }
 
 .portfolio-card:hover img {
@@ -423,12 +417,12 @@ section h2 {
   background: var(--overlay);
   opacity: 0;
   transform: translateY(30px);
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .portfolio-card:hover .portfolio-overlay {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0)
 }
 
 .view-project {
@@ -441,12 +435,12 @@ section h2 {
   color: var(--primary);
   font-size: 1.05rem;
   font-weight: 700;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px)
 }
 
 .view-project:hover {
   background: var(--primary);
-  color: #fff;
+  color: #fff
 }
 
 .portfolio-info {
@@ -455,7 +449,7 @@ section h2 {
 
 .portfolio-info h3 {
   margin-bottom: .7rem;
-  font-size: 1.45rem;
+  font-size: 1.45rem
 }
 
 .tag {
@@ -468,54 +462,52 @@ section h2 {
   font-size: .8rem;
   font-weight: 700;
   letter-spacing: .5px;
-  text-transform: uppercase;
+  text-transform: uppercase
 }
 
 .section-subtitle {
   max-width: 700px;
   margin: 0 auto 50px;
   text-align: center;
-  opacity: .8;
+  opacity: .8
 }
 
 /* About */
-
 .about-container {
   max-width: 900px;
   margin: auto;
-  text-align: center;
+  text-align: center
 }
 
 .about-container p {
   margin-top: 1.5rem;
   font-size: 1.15rem;
-  line-height: 1.9;
+  line-height: 1.9
 }
 
 /* Contact */
-
 .contact {
   background: var(--bg)
 }
 
 .contact>.container>p {
   margin-bottom: 2rem;
-  text-align: center;
+  text-align: center
 }
 
 .email-link {
   color: var(--primary);
-  font-weight: 600;
+  font-weight: 600
 }
 
 .email-link:hover {
   color: var(--primary-hover);
-  text-decoration: underline;
+  text-decoration: underline
 }
 
 .email-form-wrapper {
   width: min(600px, 100%);
-  margin: 30px auto 0;
+  margin: 30px auto 0
 }
 
 .contact-form {
@@ -528,12 +520,12 @@ section h2 {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  animation: fadeUp .35s ease;
+  animation: fadeUp .35s ease
 }
 
 .contact-form h3 {
   margin-bottom: 5px;
-  text-align: center;
+  text-align: center
 }
 
 .contact-form input,
@@ -545,20 +537,20 @@ section h2 {
   background: var(--input);
   color: var(--text);
   resize: vertical;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
   color: var(--text);
-  opacity: .6;
+  opacity: .6
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(2, 132, 199, .15);
-  outline: none;
+  outline: none
 }
 
 .email-form-close {
@@ -568,7 +560,7 @@ section h2 {
   width: 38px;
   height: 38px;
   color: var(--text);
-  font-size: 28px;
+  font-size: 28px
 }
 
 .email-form-close:hover {
@@ -581,21 +573,20 @@ section h2 {
   border-radius: var(--radius-lg);
   background: var(--card);
   text-align: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md)
 }
 
 .email-success i {
   margin-bottom: 15px;
   color: var(--primary);
-  font-size: 3rem;
+  font-size: 3rem
 }
 
 /* Footer */
-
 .footer {
   padding: 2rem 0;
   background: var(--secondary);
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border)
 }
 
 .footer-content {
@@ -603,7 +594,7 @@ section h2 {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  flex-wrap: wrap;
+  flex-wrap: wrap
 }
 
 .footer-content p {
@@ -613,7 +604,7 @@ section h2 {
 .social-links {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem
 }
 
 .social-links a {
@@ -626,15 +617,14 @@ section h2 {
   border-radius: 50%;
   background: var(--card);
   font-size: 1.2rem;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .social-links a:hover {
-  transform: translateY(-5px) scale(1.05);
+  transform: translateY(-5px) scale(1.05)
 }
 
-/* Official Brand Colors */
-
+/* Brand colors */
 .social-links .fa-youtube {
   color: #ff0000
 }
@@ -674,11 +664,10 @@ html[data-theme="dark"] .social-links .fa-github,
 html[data-theme="dark"] .social-links .fa-twitter,
 html[data-theme="dark"] .social-links .fa-x-twitter,
 html[data-theme="dark"] .social-links .fa-tiktok {
-  color: #fff;
+  color: #fff
 }
 
-/* Floating Actions */
-
+/* Floating */
 .floating-actions {
   position: fixed;
   right: 25px;
@@ -686,7 +675,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   z-index: 999;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px
 }
 
 .floating-btn {
@@ -700,11 +689,11 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   font-size: 1.6rem;
   box-shadow: var(--shadow-md);
   animation: float 3s ease-in-out infinite;
-  transition: var(--transition);
+  transition: var(--transition)
 }
 
 .floating-btn:hover {
-  transform: translateY(-6px) scale(1.08);
+  transform: translateY(-6px) scale(1.08)
 }
 
 .phone-btn {
@@ -724,7 +713,6 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 }
 
 /* Scrollbar */
-
 ::-webkit-scrollbar {
   width: 10px
 }
@@ -735,7 +723,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
-  border-radius: 20px;
+  border-radius: 20px
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -744,11 +732,10 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 
 ::selection {
   background: var(--primary);
-  color: #fff;
+  color: #fff
 }
 
 /* Animations */
-
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -786,9 +773,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 }
 
 /* Tablet */
-
 @media(max-width:991px) {
-
   .nav-container {
     min-height: 72px
   }
@@ -806,7 +791,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-md);
-    animation: slideDown .35s ease;
+    animation: slideDown .35s ease
   }
 
   .nav-menu.active {
@@ -814,23 +799,34 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 
   .mobile-menu-btn {
-    display: block
+    display: block;
+    margin-left: 1rem
   }
 
   #theme-toggle {
-    margin-left: auto;
-    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-right: 0
   }
 
   .hero {
     padding-top: 150px;
-    padding-bottom: 90px;
+    padding-bottom: 90px
   }
 }
 
 /* Mobile */
-
 @media(max-width:768px) {
+  .nav-container {
+    gap: .5rem
+  }
+
+  .mobile-menu-btn {
+    margin-left: 1rem
+  }
+
+  #theme-toggle {
+    margin-left: .75rem
+  }
 
   section {
     padding: 75px 0
@@ -842,17 +838,17 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 
   .hero-buttons {
     flex-direction: column;
-    width: 100%;
+    width: 100%
   }
 
   .hero-buttons .btn {
     width: 100%;
-    max-width: 340px;
+    max-width: 340px
   }
 
   .services-grid,
   .portfolio-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr
   }
 
   .card {
@@ -861,26 +857,32 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 
   .portfolio-card {
     max-width: 500px;
-    margin: auto;
+    margin: auto
   }
 
   .footer-content {
     flex-direction: column;
-    text-align: center;
+    text-align: center
   }
 
   .social-links {
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap
   }
 }
 
-/* Small Phones */
-
+/* Small phones */
 @media(max-width:576px) {
-
   .logo {
     font-size: 1.35rem
+  }
+
+  .mobile-menu-btn {
+    margin-left: 1.25rem
+  }
+
+  #theme-toggle {
+    margin-left: .75rem
   }
 
   h1 {
@@ -910,13 +912,13 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   .floating-actions {
     right: 15px;
     bottom: 15px;
-    gap: 12px;
+    gap: 12px
   }
 
   .floating-btn {
     width: 55px;
     height: 55px;
-    font-size: 1.4rem;
+    font-size: 1.4rem
   }
 
   .contact-form {
@@ -924,8 +926,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 }
 
-/* Large Screens */
-
+/* Large screens */
 @media(min-width:1400px) {
   .container {
     max-width: 1320px
@@ -933,25 +934,24 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 }
 
 /* Print */
-
 @media print {
 
   .navbar,
   .floating-actions,
   .mobile-menu-btn,
   #theme-toggle {
-    display: none !important;
+    display: none !important
   }
 
   body {
     background: #fff;
-    color: #000;
+    color: #000
   }
 }
 
-@media (min-width: 769px) {
+@media(min-width:769px) {
   .floating-actions {
     right: 25px;
-    bottom: 100px;
+    bottom: 100px
   }
 }
