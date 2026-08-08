@@ -23,34 +23,54 @@ const formSubmitFrame = document.getElementById('formsubmit-frame');
 let formWasSubmitted = false;
 let submissionTimeout;
 
-/* Theme */
+// Theme
+const savedTheme = localStorage.getItem('theme');
+
+// Dark mode
+const initialTheme = savedTheme || 'dark';
 
 function updateThemeIcon(theme) {
-  if (!themeIcon) return;
+  if (!themeIcon || !themeToggle) return;
 
-  themeIcon.className =
-    theme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  if (theme === 'dark') {
+    // Dark mode is active
+    themeIcon.className = 'fa-solid fa-sun';
 
-  themeToggle?.setAttribute(
-    'aria-label',
-    theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode',
-  );
+    themeToggle.setAttribute('aria-label', 'Switch to light mode');
+
+    themeToggle.setAttribute('title', 'Switch to light mode');
+  } else {
+    // Light mode is active
+    themeIcon.className = 'fa-solid fa-moon';
+
+    themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+
+    themeToggle.setAttribute('title', 'Switch to dark mode');
+  }
 }
 
 function setTheme(theme) {
   html.setAttribute('data-theme', theme);
+
+  // User's preference
+  localStorage.setItem('theme', theme);
+
   updateThemeIcon(theme);
 }
 
-setTheme('dark');
+// Apply saved / default theme
+setTheme(initialTheme);
 
+// Theme toggle
 themeToggle?.addEventListener('click', () => {
   const currentTheme = html.getAttribute('data-theme') || 'dark';
 
-  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+  setTheme(newTheme);
 });
 
-/* Mobile menu */
+// Mobile menu
 
 function closeMobileMenu() {
   if (!navMenu) return;
@@ -96,8 +116,7 @@ document.addEventListener('click', (event) => {
   }
 });
 
-/* Email form */
-
+// Email form
 function openEmailForm() {
   if (!emailFormWrapper) return;
 
@@ -146,8 +165,7 @@ emailLinks.forEach((link) => {
 
 closeEmailForm?.addEventListener('click', closeEmailFormPanel);
 
-/* Send button */
-
+// Send button
 function resetSubmitButton() {
   if (!submitButton) return;
 
@@ -157,12 +175,14 @@ function resetSubmitButton() {
     '<i class="fa-solid fa-paper-plane"></i> Send Message';
 }
 
-/* Form submission */
+// Form submission
 
 emailForm?.addEventListener('submit', (event) => {
   if (!emailForm.checkValidity()) {
     event.preventDefault();
+
     emailForm.reportValidity();
+
     return;
   }
 
@@ -184,12 +204,13 @@ emailForm?.addEventListener('submit', (event) => {
   submissionTimeout = setTimeout(() => {
     if (formWasSubmitted) {
       formWasSubmitted = false;
+
       resetSubmitButton();
     }
   }, 15000);
 });
 
-/* Form submit response */
+// Form submitt response
 
 formSubmitFrame?.addEventListener('load', () => {
   if (!formWasSubmitted) return;
@@ -213,8 +234,7 @@ formSubmitFrame?.addEventListener('load', () => {
   }, 300);
 });
 
-/* Escape key */
-
+// Escape key
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
 
