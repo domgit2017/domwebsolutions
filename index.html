@@ -1,234 +1,410 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Dom Web Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      DomWebSolutions | Professional Web Development & SEO Services in Kenya &
+      Globally
+    </title>
     <meta
       name="description"
-      content="Professional Web Design, Software Development and SEO in Kenya"
+      content="DomWebSolutions offers top-tier web development, responsive design, and global & local SEO optimization in Kenya and worldwide. Contact us at services@domwebsolutions.online."
     />
+    <meta
+      name="keywords"
+      content="Web developer Kenya, Nairobi web design, global SEO optimization, DomWebSolutions, responsive web development, HTML CSS JS"
+    />
+    <meta name="author" content="DomWebSolutions" />
+
+    <!-- Open Graph / Global SEO -->
+    <meta
+      property="og:title"
+      content="DomWebSolutions | Web Development & SEO"
+    />
+    <meta
+      property="og:description"
+      content="Custom responsive web apps, business sites, and optimization. Reach out via services@domwebsolutions.online"
+    />
+    <meta property="og:type" content="website" />
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="images/favicon.png" />
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles/general.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
   <body>
-    <header>
-      <div class="nav">
-        <div class="brand"><h1>Dom Web Solutions</h1></div>
-        <nav class="menu">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#contact">Contact</a>
-          <button id="themeToggle" class="btn">☀️ Light</button>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+      <div class="container nav-container">
+        <img class="header-logo" src="images/domweb logo.png" />
+        <a href="#" class="logo">Dom<span>Web</span>Solutions</a>
+
+        <!-- Mobile Menu -->
+        <button
+          id="mobile-menu-btn"
+          class="mobile-menu-btn"
+          aria-label="Toggle Navigation Menu"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="nav-menu" id="nav-menu">
+          <a href="#hero" class="nav-link">Home</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#portfolio" class="nav-link">Portfolio</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </nav>
-      </div>
-      <div class="hero">
-        <div>
-          <h2>Professional Websites, Software & AI Solutions</h2>
-          <p>
-            Fast, SEO optimized, responsive websites that grow your business.
-          </p>
-          <div class="cta">
-            <a class="btn primary" href="https://wa.me/254708026690"
-              >Start Project</a
-            >
-            <a class="btn" href="#portfolio">View Work</a>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Why Choose Us?</h3>
-          <ul>
-            <li>Fast Loading</li>
-            <li>SEO Optimized</li>
-            <li>Responsive Design</li>
-            <li>Affordable Pricing</li>
-          </ul>
-        </div>
+
+        <button id="theme-toggle" aria-label="Toggle dark and light mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
       </div>
     </header>
 
-    <!-- About -->
-    <section id="about" aria-labelledby="about-title">
-      <div class="card">
-        <h2 id="about-title">About Dom Web Solutions</h2>
-
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="container hero-content">
+        <h1>High-Performance Web Solutions for Local & Global Brands</h1>
         <p>
-          Dom Web Solutions is a leading web design, software development, AI
-          solutions and SEO company based in Kenya. We help businesses build
-          professional websites, business management systems, mobile
-          applications, eCommerce platforms and digital marketing solutions that
-          increase visibility, attract customers and grow revenue.
+          Empowering businesses in Kenya and across the globe with custom-built,
+          lightning-fast, and fully responsive digital experiences.
         </p>
-
-        <p>
-          We proudly serve businesses in Kenya and clients worldwide with
-          modern, secure and high-performance digital solutions.
-        </p>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" aria-labelledby="services-title">
-      <h2 id="services-title">Our Professional Services</h2>
-
-      <div class="grid cols-3">
-        <article class="card">
-          <h3>Website Design</h3>
-
-          <p>
-            Professional business websites, corporate websites, church websites,
-            school websites, NGO websites, real estate websites, hotel websites
-            and eCommerce stores.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Software Development</h3>
-
-          <p>
-            Custom software, ERP systems, inventory systems, school management
-            systems, hospital systems, POS systems and mobile applications.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>SEO & AI Solutions</h3>
-
-          <p>
-            Google SEO, AI automation, chatbot integration, website
-            optimization, branding, digital marketing and business automation.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Portfolio -->
-
-    <section id="portfolio" aria-labelledby="portfolio-title">
-      <h2 id="portfolio-title">Recent Projects</h2>
-
-      <div class="grid cols-3">
-        <div class="card">
-          <h3>Kato Power Security</h3>
-
-          <p>
-            Professional security company website with SEO optimization and
-            responsive design.
-          </p>
-
-          <a
-            class="btn primary"
-            href="https://katopowersecurity.com"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div class="hero-buttons">
+          <a href="tel:+254708026690" class="btn primary-btn"
+            ><i class="fa-solid fa-phone"></i> Call Now</a
           >
-            Visit Website
-          </a>
-        </div>
-
-        <div class="card">
-          <h3>Holy Trinity Mission</h3>
-
-          <p>
-            Modern church website with responsive layout, gallery and online
-            ministry information.
-          </p>
-
-          <a
-            class="btn primary"
-            href="https://holytrinityinternationalmission.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit Website
-          </a>
-        </div>
-
-        <div class="card">
-          <h3>Komothai Finest Mc</h3>
-
-          <p>
-            Master of ceremonies (MC), event host, traditional / cultural
-            entertainer and social gatherings.
-          </p>
-
-          <a
-            class="btn primary"
-            href="https://wa.me/254708026690?text=Hello%20Dom%20Web%20Solutions.%20I%20need%20a%20website."
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit Website
-          </a>
         </div>
       </div>
     </section>
 
-    <!-- Contacts -->
-
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title">Contact Us</h2>
-
-      <div class="grid cols-2">
-        <!-- Email -->
-
-        <div class="card">
-          <p>Click below to write us an email for your request.</p>
-
-          <a
-            id="emailButton"
-            class="btn primary"
-            href="services@domwebsolutions.online"
-            aria-label="Send Email"
-          >
-            Email Us
-          </a>
-        </div>
-
-        <!-- Phone -->
-
-        <div class="card">
-          <p>Call us directly we talk.</p>
-
-          <a
-            class="btn"
-            href="tel:+254708026690"
-            aria-label="Call Dom Web Solutions"
-          >
-            +254 708 026 690
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-
-    <footer>
+    <!-- Services Section -->
+    <section id="services" class="services">
       <div class="container">
-        <p>
-          © <span id="y"></span>
+        <h2>What We Do</h2>
+        <div class="services-grid">
+          <div class="card">
+            <i class="fa-solid fa-code"></i>
+            <h3>Web Development</h3>
+            <p>
+              Scalable, high-speed custom code layout optimized for all screen
+              resolutions.
+            </p>
+          </div>
+          <div class="card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>SEO Optimization</h3>
+            <p>
+              Targeted strategies tuned for local visibility (Kenya) and
+              international markets.
+            </p>
+          </div>
+          <div class="card">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <h3>Responsive Design</h3>
+            <p>
+              Flawless adaptation across mobile phones, tablets, laptops, and
+              large desktop monitors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <strong>Dom Web Solutions</strong>
-
-          All Rights Reserved.
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+        <h2>Our Portfolio</h2>
+        <p class="section-subtitle">
+          A showcase of our recent web platforms deployed locally and globally.
         </p>
+        <div class="portfolio-grid">
+          <!-- Card 1 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image-wrapper">
+              <img
+                src="images/katopower.JPG"
+                alt="Kato Power Security website"
+                loading="lazy"
+              />
+              <div class="portfolio-overlay">
+                <span class="view-project">
+                  <a
+                    href="https://katopowersecurity.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Website
+                  </a>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+              </div>
+            </div>
+            <div class="portfolio-info">
+              <span class="tag">Security</span>
+              <h3>Kato Power Security</h3>
+              <p>
+                Professional security company website with responsive design,
+                automation and SEO optimization.
+              </p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image-wrapper">
+              <img
+                src="images/holy trinity.JPG"
+                alt="Holy Trinity International Mission website"
+                loading="lazy"
+              />
+              <div class="portfolio-overlay">
+                <span class="view-project">
+                  <a
+                    href="https://holytrinityinternationalmission.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Website
+                  </a>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+              </div>
+            </div>
+            <div class="portfolio-info">
+              <span class="tag">Mission / NGO</span>
+              <h3>Holy Trinity International Mission</h3>
+              <p>
+                Responsive mission website designed to present ministries,
+                community work, gallery content and donation information.
+              </p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="portfolio-card">
+            <div class="portfolio-image-wrapper">
+              <img
+                src="images/komothai.JPG"
+                alt="Komothai's Finest MC website"
+                loading="lazy"
+              />
+              <div class="portfolio-overlay">
+                <span class="view-project">
+                  <a
+                    href="https://holytrinityinternationalmission.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Website
+                  </a>
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+              </div>
+            </div>
+            <div class="portfolio-info">
+              <span class="tag">Event Management</span>
+              <h3>Komothai's Finest MC</h3>
+              <p>
+                Modern event management and MC website with responsive design,
+                booking functionality and professional presentation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About  -->
+    <section id="about" class="about">
+      <div class="container about-container">
+        <h2>About DomWebSolutions</h2>
+        <p>
+          Based dynamically to serve enterprises locally and internationally, we
+          bridge creative design with rigorous performance standards. Whether
+          scaling a startup in Nairobi or expanding enterprise outreach
+          worldwide, our code delivers results.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Start Your Project</h2>
+
+        <p>
+          Ready to upgrade your digital footprint?
+          <a
+            href="#email-form-wrapper"
+            id="email-link"
+            class="email-link"
+            aria-label="Send an email to DomWebSolutions"
+          >
+            services@domwebsolutions.online
+          </a>
+        </p>
+
+        <div id="email-form-wrapper" class="email-form-wrapper" hidden>
+          <form
+            id="email-form"
+            action="https://formsubmit.co/services@domwebsolutions.online"
+            method="POST"
+            target="formsubmit-frame"
+            class="contact-form"
+          >
+            <input
+              type="hidden"
+              name="_subject"
+              value="New Web Development Inquiry - DomWebSolutions"
+            />
+
+            <input type="hidden" name="_template" value="table" />
+
+            <input type="hidden" name="_captcha" value="false" />
+
+            <input type="hidden" name="_replyto" value="" id="reply-to" />
+
+            <button
+              type="button"
+              id="close-email-form"
+              class="email-form-close"
+              aria-label="Close email form"
+            >
+              &times;
+            </button>
+
+            <h3>Send us an Email</h3>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              autocomplete="name"
+              required
+            />
+
+            <input
+              type="email"
+              name="email"
+              id="sender-email"
+              placeholder="Your Email"
+              autocomplete="email"
+              required
+            />
+
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Your Message"
+              required
+            ></textarea>
+
+            <button type="submit" class="btn primary-btn" id="email-submit">
+              <i class="fa-solid fa-paper-plane"></i>
+              Send Message
+            </button>
+          </form>
+
+          <iframe
+            name="formsubmit-frame"
+            id="formsubmit-frame"
+            hidden
+            title="Email submission"
+          ></iframe>
+
+          <div id="email-success" class="email-success" hidden>
+            <i class="fa-solid fa-circle-check"></i>
+
+            <h3>Message Sent Successfully</h3>
+
+            <p>
+              Thank you. Your message has been sent. We will get back to you
+              shortly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer & Social Links -->
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>&copy; 2026 DomWebSolutions. All rights reserved.</p>
+        <div class="social-links">
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          >
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X / Twitter"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+        </div>
       </div>
     </footer>
 
-    <!-- Whatsapp -->
-
-    <a
-      class="wa-float"
-      href="https://wa.me/254708026690?text=Hello%20Dom%20Web%20Solutions.%20I%20need%20your%20services."
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
-    >
-      💬
-    </a>
+    <!-- Dual Floating (WhatsApp & Phone Call) -->
+    <div class="floating-actions">
+      <a
+        href="tel:+254708026690"
+        class="floating-btn phone-btn"
+        aria-label="Call Hotline Direct"
+      >
+        <i class="fa-solid fa-phone"></i>
+      </a>
+      <a
+        href="https://wa.me"
+        class="floating-btn whatsapp-btn"
+        target="_blank"
+        aria-label="Chat on WhatsApp"
+      >
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </div>
 
     <!-- JavaScript -->
-
-    <script src="scripts/general.js" defer></script>
+    <script src="scripts/general.js"></script>
   </body>
 </html>
