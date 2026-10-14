@@ -1,13 +1,22 @@
 const html = document.documentElement;
 
 const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = themeToggle?.querySelector('i');
+const themeIcon = themeToggle?.querySelector('use');
 
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const navMenu = document.getElementById('nav-menu');
-const menuIcon = mobileMenuBtn?.querySelector('i');
+const menuIcon = mobileMenuBtn?.querySelector('use');
 
-const emailLinks = document.querySelectorAll('#email-link, #footer-email-link');
+// Icons are inline SVG symbols (see the sprite at the top of index.html)
+function setIcon(useEl, name) {
+  useEl?.setAttribute('href', '#i-' + name);
+}
+
+function iconMarkup(name, extra = '') {
+  return `<svg class="icon ${extra}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+}
+
+const emailLinks = document.querySelectorAll('#email-link');
 
 const emailFormWrapper = document.getElementById('email-form-wrapper');
 const emailForm = document.getElementById('email-form');
@@ -18,10 +27,10 @@ const submitButton = document.getElementById('email-submit');
 const senderEmail = document.getElementById('sender-email');
 const replyTo = document.getElementById('reply-to');
 
-const formSubmitFrame = document.getElementById('formsubmit-frame');
+const emailError = document.getElementById('email-error');
 
-let formWasSubmitted = false;
-let submissionTimeout;
+let isSending = false;
+let successTimer;
 
 // Theme
 const savedTheme = localStorage.getItem('theme');
@@ -34,14 +43,14 @@ function updateThemeIcon(theme) {
 
   if (theme === 'dark') {
     // Dark mode is active
-    themeIcon.className = 'fa-solid fa-sun';
+    setIcon(themeIcon, 'sun');
 
     themeToggle.setAttribute('aria-label', 'Switch to light mode');
 
     themeToggle.setAttribute('title', 'Switch to light mode');
   } else {
     // Light mode is active
-    themeIcon.className = 'fa-solid fa-moon';
+    setIcon(themeIcon, 'moon');
 
     themeToggle.setAttribute('aria-label', 'Switch to dark mode');
 
@@ -77,9 +86,7 @@ function closeMobileMenu() {
 
   navMenu.classList.remove('active');
 
-  if (menuIcon) {
-    menuIcon.className = 'fa-solid fa-bars';
-  }
+  setIcon(menuIcon, 'bars');
 
   mobileMenuBtn?.setAttribute('aria-expanded', 'false');
 }
@@ -93,9 +100,7 @@ mobileMenuBtn?.addEventListener('click', (event) => {
 
   const isOpen = navMenu.classList.toggle('active');
 
-  if (menuIcon) {
-    menuIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-  }
+  setIcon(menuIcon, isOpen ? 'xmark' : 'bars');
 
   mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
 });
@@ -117,14 +122,20 @@ document.addEventListener('click', (event) => {
 });
 
 // Email form
+function hideEmailError() {
+  if (emailError) emailError.hidden = true;
+}
+
 function openEmailForm() {
   if (!emailFormWrapper) return;
 
+  clearTimeout(successTimer);
+
   emailFormWrapper.hidden = false;
 
-  if (emailSuccess) {
-    emailSuccess.hidden = true;
-  }
+  if (emailForm) emailForm.hidden = false;
+  if (emailSuccess) emailSuccess.hidden = true;
+  hideEmailError();
 
   setTimeout(() => {
     emailFormWrapper.scrollIntoView({
@@ -141,19 +152,17 @@ function openEmailForm() {
 function closeEmailFormPanel() {
   if (!emailFormWrapper) return;
 
+  clearTimeout(successTimer);
+
   emailFormWrapper.hidden = true;
 
   emailForm?.reset();
 
-  if (emailSuccess) {
-    emailSuccess.hidden = true;
-  }
+  if (emailForm) emailForm.hidden = false;
+  if (emailSuccess) emailSuccess.hidden = true;
+  hideEmailError();
 
-  resetSubmitButton();
-
-  formWasSubmitted = false;
-
-  clearTimeout(submissionTimeout);
+  setSending(false);
 }
 
 emailLinks.forEach((link) => {
@@ -166,23 +175,40 @@ emailLinks.forEach((link) => {
 closeEmailForm?.addEventListener('click', closeEmailFormPanel);
 
 // Send button
-function resetSubmitButton() {
+function setSending(sending) {
+  isSending = sending;
+
   if (!submitButton) return;
 
-  submitButton.disabled = false;
+  submitButton.disabled = sending;
 
-  submitButton.innerHTML =
-    '<i class="fa-solid fa-paper-plane"></i> Send Message';
+  submitButton.innerHTML = sending
+    ? iconMarkup('spinner', 'spin') + ' Sending...'
+    : iconMarkup('paper-plane') + ' Send Message';
 }
 
-// Form submission
+// Form submission (FormSubmit AJAX endpoint, so we know if it really worked)
+function showEmailSuccess() {
+  emailForm?.reset();
 
-emailForm?.addEventListener('submit', (event) => {
+  if (emailForm) emailForm.hidden = true;
+  if (emailSuccess) {
+    emailSuccess.hidden = false;
+    emailSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Clear the thank-you message (and close the panel) after 2 seconds
+  clearTimeout(successTimer);
+  successTimer = setTimeout(closeEmailFormPanel, 2000);
+}
+
+emailForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  if (isSending) return;
+
   if (!emailForm.checkValidity()) {
-    event.preventDefault();
-
     emailForm.reportValidity();
-
     return;
   }
 
@@ -190,48 +216,44 @@ emailForm?.addEventListener('submit', (event) => {
     replyTo.value = senderEmail.value.trim();
   }
 
-  formWasSubmitted = true;
+  hideEmailError();
+  setSending(true);
 
-  if (submitButton) {
-    submitButton.disabled = true;
+  const endpoint = emailForm.action.replace(
+    'formsubmit.co/',
+    'formsubmit.co/ajax/',
+  );
 
-    submitButton.innerHTML =
-      '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(emailForm),
+      signal: controller.signal,
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (
+      !response.ok ||
+      result.success === false ||
+      result.success === 'false'
+    ) {
+      throw new Error(result.message || 'Message could not be sent');
+    }
+
+    showEmailSuccess();
+  } catch (error) {
+    console.error('Email form error:', error);
+
+    if (emailError) emailError.hidden = false;
+  } finally {
+    clearTimeout(timeout);
+    setSending(false);
   }
-
-  clearTimeout(submissionTimeout);
-
-  submissionTimeout = setTimeout(() => {
-    if (formWasSubmitted) {
-      formWasSubmitted = false;
-
-      resetSubmitButton();
-    }
-  }, 15000);
-});
-
-// Form submitt response
-
-formSubmitFrame?.addEventListener('load', () => {
-  if (!formWasSubmitted) return;
-
-  formWasSubmitted = false;
-
-  clearTimeout(submissionTimeout);
-
-  setTimeout(() => {
-    if (emailFormWrapper) {
-      emailFormWrapper.hidden = true;
-    }
-
-    if (emailSuccess) {
-      emailSuccess.hidden = false;
-    }
-
-    emailForm?.reset();
-
-    resetSubmitButton();
-  }, 300);
 });
 
 // Escape key
@@ -244,3 +266,10 @@ document.addEventListener('keydown', (event) => {
 
   closeMobileMenu();
 });
+
+// Padlock / "secure" notes: only shown when the page is really served over HTTPS
+if (location.protocol === 'https:') {
+  document.querySelectorAll('[data-https-only]').forEach((el) => {
+    el.hidden = false;
+  });
+}

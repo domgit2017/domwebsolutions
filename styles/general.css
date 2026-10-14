@@ -58,13 +58,35 @@ body {
   transition: background var(--transition), color var(--transition)
 }
 
+/* Inline SVG icons (replace the old Font Awesome font) */
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -.125em
+}
+
+.spin {
+  animation: spin 1s linear infinite
+}
+
+.brand-link {
+  display: block;
+  flex: none;
+  line-height: 0
+}
+
 .header-logo {
+  width: 50px;
   height: 50px;
-  border-radius: 25px
+  border-radius: 25px;
+  object-fit: cover
 }
 
 .header-logo:hover {
-  opacity: 9px;
+  opacity: .85;
   border: 1px dotted red;
   cursor: pointer
 }
@@ -96,6 +118,12 @@ img {
   max-width: 100%
 }
 
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent
+}
+
 button {
   border: 0;
   background: none;
@@ -121,6 +149,11 @@ textarea {
 
 section {
   padding: 90px 0
+}
+
+/* Keep section headings clear of the fixed navbar when jumping to anchors */
+section[id] {
+  scroll-margin-top: 80px
 }
 
 section h2 {
@@ -205,6 +238,11 @@ section h2 {
 }
 
 #theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   color: var(--text);
   font-size: 1.2rem;
   transition: var(--transition)
@@ -337,14 +375,14 @@ section h2 {
   box-shadow: var(--shadow-md)
 }
 
-.card i {
+.card .icon {
   margin-bottom: 1.3rem;
   color: var(--primary);
   font-size: 3rem;
   transition: var(--transition)
 }
 
-.card:hover i {
+.card:hover .icon {
   transform: scale(1.15) rotate(-8deg)
 }
 
@@ -364,6 +402,7 @@ section h2 {
 }
 
 .portfolio-card {
+  min-width: 0;
   overflow: hidden
 }
 
@@ -384,7 +423,7 @@ section h2 {
   transition: .5s ease
 }
 
-.portfolio-image-placeholder i {
+.portfolio-image-placeholder .icon {
   color: var(--primary);
   font-size: 4rem;
   opacity: .65;
@@ -441,6 +480,35 @@ section h2 {
 .view-project:hover {
   background: var(--primary);
   color: #fff
+}
+
+.portfolio-overlay:hover .view-project,
+.portfolio-overlay:focus-visible .view-project {
+  background: var(--primary);
+  color: #fff
+}
+
+/* Keyboard users: reveal the link when it is focused */
+.portfolio-card:focus-within .portfolio-overlay {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+/* Touch screens have no hover, so keep the button visible */
+@media (hover: none) {
+  .portfolio-overlay {
+    align-items: flex-end;
+    padding-bottom: 1rem;
+    background: transparent;
+    opacity: 1;
+    transform: none
+  }
+
+  .view-project {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-md)
+  }
 }
 
 .portfolio-info {
@@ -555,16 +623,30 @@ section h2 {
 
 .email-form-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 38px;
-  height: 38px;
+  top: 6px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
   color: var(--text);
   font-size: 28px
 }
 
 .email-form-close:hover {
   color: var(--primary)
+}
+
+.email-error {
+  padding: 12px 14px;
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, .12);
+  font-size: .95rem
+}
+
+.email-error a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: underline
 }
 
 .email-success {
@@ -576,7 +658,7 @@ section h2 {
   box-shadow: var(--shadow-md)
 }
 
-.email-success i {
+.email-success .icon {
   margin-bottom: 15px;
   color: var(--primary);
   font-size: 3rem
@@ -760,6 +842,12 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -799,8 +887,16 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 
   .mobile-menu-btn {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     margin-left: 1rem
+  }
+
+  .nav-link {
+    padding: 10px 24px
   }
 
   #theme-toggle {
@@ -874,15 +970,18 @@ html[data-theme="dark"] .social-links .fa-tiktok {
 /* Small phones */
 @media(max-width:576px) {
   .logo {
-    font-size: 1.35rem
+    font-size: clamp(.9rem, 4.6vw, 1.35rem);
+    white-space: nowrap
   }
 
-  .mobile-menu-btn {
-    margin-left: 1.25rem
+  .header-logo {
+    width: 40px;
+    height: 40px
   }
 
+  .mobile-menu-btn,
   #theme-toggle {
-    margin-left: .75rem
+    margin-left: 0
   }
 
   h1 {
@@ -906,6 +1005,7 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 
   .portfolio-image-wrapper {
+    aspect-ratio: auto;
     height: 220px
   }
 
@@ -926,10 +1026,73 @@ html[data-theme="dark"] .social-links .fa-tiktok {
   }
 }
 
+/* Very small phones (320-380px): keep the header on one line */
+@media(max-width:380px) {
+  .nav-container {
+    gap: .25rem
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px
+  }
+
+  h1 {
+    font-size: 2rem !important
+  }
+
+  h2 {
+    font-size: 1.6rem !important
+  }
+}
+
 /* Large screens */
 @media(min-width:1400px) {
   .container {
     max-width: 1320px
+  }
+}
+
+/* Trust badge: shown only when the page is really served over HTTPS */
+.trust-badge,
+.form-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .9rem;
+  color: var(--text)
+}
+
+.trust-badge {
+  margin-top: 1.75rem;
+  padding: .5rem 1rem;
+  max-width: 100%;
+  line-height: 1.3;
+  border: 1px solid rgba(34, 197, 94, .55);
+  border-radius: 999px;
+  background: rgba(34, 197, 94, .1)
+}
+
+.form-secure {
+  justify-content: center;
+  margin: 0;
+  opacity: .9
+}
+
+.trust-badge .icon,
+.form-secure .icon {
+  color: #22c55e
+}
+
+/* Respect "reduce motion" (also saves battery on phones) */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important
   }
 }
 
