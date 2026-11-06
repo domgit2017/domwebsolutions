@@ -1,22 +1,13 @@
 const html = document.documentElement;
 
 const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = themeToggle?.querySelector('use');
+const themeIcon = themeToggle?.querySelector('i');
 
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const navMenu = document.getElementById('nav-menu');
-const menuIcon = mobileMenuBtn?.querySelector('use');
+const menuIcon = mobileMenuBtn?.querySelector('i');
 
-// Icons are inline SVG symbols (see the sprite at the top of index.html)
-function setIcon(useEl, name) {
-  useEl?.setAttribute('href', '#i-' + name);
-}
-
-function iconMarkup(name, extra = '') {
-  return `<svg class="icon ${extra}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
-}
-
-const emailLinks = document.querySelectorAll('#email-link');
+const emailLinks = document.querySelectorAll('#email-link, #footer-email-link');
 
 const emailFormWrapper = document.getElementById('email-form-wrapper');
 const emailForm = document.getElementById('email-form');
@@ -27,30 +18,27 @@ const submitButton = document.getElementById('email-submit');
 const senderEmail = document.getElementById('sender-email');
 const replyTo = document.getElementById('reply-to');
 
-const emailError = document.getElementById('email-error');
 
-let isSending = false;
-let successTimer;
 
 // Theme
 const savedTheme = localStorage.getItem('theme');
 
 // Dark mode
-const initialTheme = savedTheme || 'dark';
+const initialTheme = savedTheme || 'light';
 
 function updateThemeIcon(theme) {
   if (!themeIcon || !themeToggle) return;
 
   if (theme === 'dark') {
     // Dark mode is active
-    setIcon(themeIcon, 'sun');
+    themeIcon.className = 'fa-solid fa-sun';
 
     themeToggle.setAttribute('aria-label', 'Switch to light mode');
 
     themeToggle.setAttribute('title', 'Switch to light mode');
   } else {
     // Light mode is active
-    setIcon(themeIcon, 'moon');
+    themeIcon.className = 'fa-solid fa-moon';
 
     themeToggle.setAttribute('aria-label', 'Switch to dark mode');
 
@@ -72,7 +60,7 @@ setTheme(initialTheme);
 
 // Theme toggle
 themeToggle?.addEventListener('click', () => {
-  const currentTheme = html.getAttribute('data-theme') || 'dark';
+  const currentTheme = html.getAttribute('data-theme') || 'light';
 
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
@@ -86,7 +74,9 @@ function closeMobileMenu() {
 
   navMenu.classList.remove('active');
 
-  setIcon(menuIcon, 'bars');
+  if (menuIcon) {
+    menuIcon.className = 'fa-solid fa-bars';
+  }
 
   mobileMenuBtn?.setAttribute('aria-expanded', 'false');
 }
@@ -100,7 +90,9 @@ mobileMenuBtn?.addEventListener('click', (event) => {
 
   const isOpen = navMenu.classList.toggle('active');
 
-  setIcon(menuIcon, isOpen ? 'xmark' : 'bars');
+  if (menuIcon) {
+    menuIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  }
 
   mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
 });
@@ -122,28 +114,26 @@ document.addEventListener('click', (event) => {
 });
 
 // Email form
-function hideEmailError() {
-  if (emailError) emailError.hidden = true;
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/domwebservices@gmail.com';
+const THANK_YOU_MS = 3000;
+const emailError = document.getElementById('email-error');
+let thankYouTimer;
+
+function resetSubmitButton() {
+  if (!submitButton) return;
+  submitButton.disabled = false;
+  submitButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send message';
 }
 
 function openEmailForm() {
   if (!emailFormWrapper) return;
-
-  clearTimeout(successTimer);
-
+  clearTimeout(thankYouTimer);
   emailFormWrapper.hidden = false;
-
-  if (emailForm) emailForm.hidden = false;
   if (emailSuccess) emailSuccess.hidden = true;
-  hideEmailError();
-
+  if (emailError) emailError.hidden = true;
   setTimeout(() => {
-    emailFormWrapper.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
+    emailFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 50);
-
   setTimeout(() => {
     emailForm?.querySelector('input[name="name"]')?.focus();
   }, 350);
@@ -151,18 +141,11 @@ function openEmailForm() {
 
 function closeEmailFormPanel() {
   if (!emailFormWrapper) return;
-
-  clearTimeout(successTimer);
-
   emailFormWrapper.hidden = true;
-
   emailForm?.reset();
-
-  if (emailForm) emailForm.hidden = false;
   if (emailSuccess) emailSuccess.hidden = true;
-  hideEmailError();
-
-  setSending(false);
+  if (emailError) emailError.hidden = true;
+  resetSubmitButton();
 }
 
 emailLinks.forEach((link) => {
@@ -174,102 +157,62 @@ emailLinks.forEach((link) => {
 
 closeEmailForm?.addEventListener('click', closeEmailFormPanel);
 
-// Send button
-function setSending(sending) {
-  isSending = sending;
+function showThankYou() {
+  emailFormWrapper.hidden = true;
+  emailForm.reset();
+  resetSubmitButton();
+  emailSuccess.hidden = false;
+  emailSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-  if (!submitButton) return;
-
-  submitButton.disabled = sending;
-
-  submitButton.innerHTML = sending
-    ? iconMarkup('spinner', 'spin') + ' Sending...'
-    : iconMarkup('paper-plane') + ' Send Message';
-}
-
-// Form submission (FormSubmit AJAX endpoint, so we know if it really worked)
-function showEmailSuccess() {
-  emailForm?.reset();
-
-  if (emailForm) emailForm.hidden = true;
-  if (emailSuccess) {
-    emailSuccess.hidden = false;
-    emailSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  // Clear the thank-you message (and close the panel) after 2 seconds
-  clearTimeout(successTimer);
-  successTimer = setTimeout(closeEmailFormPanel, 2000);
+  clearTimeout(thankYouTimer);
+  thankYouTimer = setTimeout(() => {
+    emailSuccess.hidden = true;
+  }, THANK_YOU_MS);
 }
 
 emailForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
-
-  if (isSending) return;
 
   if (!emailForm.checkValidity()) {
     emailForm.reportValidity();
     return;
   }
 
-  if (senderEmail && replyTo) {
-    replyTo.value = senderEmail.value.trim();
-  }
+  if (emailError) emailError.hidden = true;
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-  hideEmailError();
-  setSending(true);
-
-  const endpoint = emailForm.action.replace(
-    'formsubmit.co/',
-    'formsubmit.co/ajax/',
-  );
+  const data = Object.fromEntries(new FormData(emailForm).entries());
+  data._replyto = (data.email || '').trim();
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
+  const abortTimer = setTimeout(() => controller.abort(), 15000);
 
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(FORM_ENDPOINT, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: new FormData(emailForm),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
       signal: controller.signal,
     });
-
     const result = await response.json().catch(() => ({}));
 
-    if (
-      !response.ok ||
-      result.success === false ||
-      result.success === 'false'
-    ) {
-      throw new Error(result.message || 'Message could not be sent');
+    if (!response.ok || result.success === false || result.success === 'false') {
+      throw new Error(result.message || 'Send failed');
     }
 
-    showEmailSuccess();
+    showThankYou();
   } catch (error) {
-    console.error('Email form error:', error);
-
+    resetSubmitButton();
     if (emailError) emailError.hidden = false;
   } finally {
-    clearTimeout(timeout);
-    setSending(false);
+    clearTimeout(abortTimer);
   }
 });
 
 // Escape key
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
-
-  if (emailFormWrapper && !emailFormWrapper.hidden) {
-    closeEmailFormPanel();
-  }
-
+  if (emailFormWrapper && !emailFormWrapper.hidden) closeEmailFormPanel();
   closeMobileMenu();
 });
-
-// Padlock / "secure" notes: only shown when the page is really served over HTTPS
-if (location.protocol === 'https:') {
-  document.querySelectorAll('[data-https-only]').forEach((el) => {
-    el.hidden = false;
-  });
-}
