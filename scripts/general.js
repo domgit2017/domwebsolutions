@@ -114,7 +114,6 @@ document.addEventListener('click', (event) => {
 });
 
 // Email form
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/domwebservices@gmail.com';
 const THANK_YOU_MS = 3000;
 const emailError = document.getElementById('email-error');
 let thankYouTimer;
@@ -170,44 +169,41 @@ function showThankYou() {
   }, THANK_YOU_MS);
 }
 
-emailForm?.addEventListener('submit', async (event) => {
-  event.preventDefault();
+const formSubmitFrame = document.getElementById('formsubmit-frame');
+let formWasSubmitted = false;
+let failTimer;
 
+emailForm?.addEventListener('submit', (event) => {
   if (!emailForm.checkValidity()) {
+    event.preventDefault();
     emailForm.reportValidity();
     return;
   }
 
+  // Let the browser post the form into the hidden iframe
+  if (senderEmail && replyTo) replyTo.value = senderEmail.value.trim();
   if (emailError) emailError.hidden = true;
+
+  formWasSubmitted = true;
   submitButton.disabled = true;
   submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-  const data = Object.fromEntries(new FormData(emailForm).entries());
-  data._replyto = (data.email || '').trim();
-
-  const controller = new AbortController();
-  const abortTimer = setTimeout(() => controller.abort(), 15000);
-
-  try {
-    const response = await fetch(FORM_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    });
-    const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || result.success === false || result.success === 'false') {
-      throw new Error(result.message || 'Send failed');
-    }
-
-    showThankYou();
-  } catch (error) {
+  clearTimeout(failTimer);
+  failTimer = setTimeout(() => {
+    if (!formWasSubmitted) return;
+    formWasSubmitted = false;
     resetSubmitButton();
+    const detail = document.getElementById('email-error-detail');
+    if (detail) detail.textContent = 'The mail service took too long to respond.';
     if (emailError) emailError.hidden = false;
-  } finally {
-    clearTimeout(abortTimer);
-  }
+  }, 25000);
+});
+
+formSubmitFrame?.addEventListener('load', () => {
+  if (!formWasSubmitted) return;
+  formWasSubmitted = false;
+  clearTimeout(failTimer);
+  showThankYou();
 });
 
 // Escape key
