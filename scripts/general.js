@@ -113,6 +113,7 @@ function setComposeOpen(open) {
   composeWrap.hidden = !open;
   composeOpen?.setAttribute('aria-expanded', String(open));
   if (!open) resetCompose();
+  if (!open) resetCompose();
   if (open) {
     composeWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => document.getElementById('c-name')?.focus(), 350);
@@ -129,9 +130,9 @@ const statusEl = document.getElementById('compose-status');
 
 const STEPS = [
   { key: 'mailto', label: 'Send', done: 'Your email app should now show the message, ready to send.' },
-  { key: 'gmail', label: 'Continue with Gmail', done: 'Gmail opened in a new tab with your message ready to send.' },
-  { key: 'outlook', label: 'Continue with Outlook', done: 'Outlook opened in a new tab with your message ready to send.' },
-  { key: 'yahoo', label: 'Continue with Yahoo Mail', done: 'Yahoo Mail opened in a new tab with your message ready to send.' },
+  { key: 'gmail', label: 'Send', done: 'Gmail opened in a new tab with your message ready to send.' },
+  { key: 'outlook', label: 'Send', done: 'Outlook opened in a new tab with your message ready to send.' },
+  { key: 'yahoo', label: 'Send', done: 'Yahoo Mail opened in a new tab with your message ready to send.' },
   { key: 'copy', label: 'Copy message', done: 'Message copied. Paste it into a new email to ' + TO + '.' },
 ];
 let stepIdx = 0;
@@ -190,6 +191,29 @@ async function launch(links) {
   return false;
 }
 
+const thanksEl = document.getElementById('compose-thanks');
+const THANKS_MS = 3000;
+let thanksTimer;
+
+// Back to the state it had before "Email us" was clicked
+function resetCompose() {
+  clearTimeout(thanksTimer);
+  composeForm?.reset();
+  if (composeForm) composeForm.hidden = false;
+  if (thanksEl) thanksEl.hidden = true;
+  setStep(0);
+  setStatus('');
+  if (sendBtn) sendBtn.disabled = false;
+}
+
+function showThanks() {
+  setStatus('');
+  composeForm.hidden = true;
+  thanksEl.hidden = false;
+  clearTimeout(thanksTimer);
+  thanksTimer = setTimeout(() => setComposeOpen(false), THANKS_MS);
+}
+
 async function runCompose() {
   const links = currentLinks();
   if (!links) return;
@@ -200,16 +224,11 @@ async function runCompose() {
   const ok = await launch(links);
 
   if (ok) {
-    setStatus(STEPS[stepIdx].done);
-    composeForm.reset();
-    setStep(0);
-    // Show the confirmation for 3 seconds, then return to the default state
-    clearTimeout(resetTimer);
-    resetTimer = setTimeout(() => setComposeOpen(false), 3000);
+    showThanks();
   } else if (stepIdx < STEPS.length - 1) {
     // Did not open: the same button now offers the next option
     setStep(stepIdx + 1);
-    setStatus('');
+    setStatus('Press Send once more to open your email.');
   } else {
     setStatus('Please copy our address: ' + TO);
   }
