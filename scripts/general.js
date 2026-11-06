@@ -97,10 +97,22 @@ function currentLinks() {
   return buildLinks(name, topic, message);
 }
 
+let resetTimer;
+
+// Back to the default state: empty form, first send option, no message
+function resetCompose() {
+  composeForm?.reset();
+  setStep(0);
+  setStatus('');
+  if (sendBtn) sendBtn.disabled = false;
+}
+
 function setComposeOpen(open) {
   if (!composeWrap) return;
+  clearTimeout(resetTimer);
   composeWrap.hidden = !open;
   composeOpen?.setAttribute('aria-expanded', String(open));
+  if (!open) resetCompose();
   if (open) {
     composeWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => document.getElementById('c-name')?.focus(), 350);
@@ -116,7 +128,7 @@ const sendLabel = document.getElementById('compose-send-label');
 const statusEl = document.getElementById('compose-status');
 
 const STEPS = [
-  { key: 'mailto', label: 'Open in my email app', done: 'Your email app should now show the message, ready to send.' },
+  { key: 'mailto', label: 'Send', done: 'Your email app should now show the message, ready to send.' },
   { key: 'gmail', label: 'Continue with Gmail', done: 'Gmail opened in a new tab with your message ready to send.' },
   { key: 'outlook', label: 'Continue with Outlook', done: 'Outlook opened in a new tab with your message ready to send.' },
   { key: 'yahoo', label: 'Continue with Yahoo Mail', done: 'Yahoo Mail opened in a new tab with your message ready to send.' },
@@ -189,7 +201,11 @@ async function runCompose() {
 
   if (ok) {
     setStatus(STEPS[stepIdx].done);
+    composeForm.reset();
     setStep(0);
+    // Show the confirmation for 3 seconds, then return to the default state
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => setComposeOpen(false), 3000);
   } else if (stepIdx < STEPS.length - 1) {
     // Did not open: the same button now offers the next option
     setStep(stepIdx + 1);
