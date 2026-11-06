@@ -39,7 +39,7 @@
 
 <section id="hero" class="hero"><div class="container hero-content">
 <div>
-<h1>A website that brings your Kenyan business customers, not just a pretty page.</h1>
+<h1>Professional websites that work for your business</h1>
 <p>We build fast, mobile-friendly websites with WhatsApp ordering and Google visibility built in. Based in Nairobi, working with businesses across Kenya and abroad.</p>
 <div class="hero-buttons">
 <a class="btn btn-wa" href="https://wa.me/254114200609?text=Hello%20DomWebSolutions%2C%20I%20would%20like%20a%20quote%20for%20a%20website." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> Get a free quote on WhatsApp</a>
@@ -97,14 +97,22 @@
 <div class="contact-buttons">
 <a class="btn btn-wa" href="https://wa.me/254114200609?text=Hello%20DomWebSolutions%2C%20I%20would%20like%20a%20quote%20for%20a%20website." target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp +254 114 200 609</a>
 <a class="btn btn-gold" href="tel:+254114200609"><i class="fa-solid fa-phone"></i> Call us</a>
-<a class="btn btn-ghost" href="mailto:domwebservices@gmail.com?subject=Website%20enquiry%20from%20domwebsolutions.online&amp;body=Hello%20DomWebSolutions%2C%0D%0A%0D%0AI%20would%20like%20a%20quote%20for%20a%20website.%0D%0A%0D%0AName%3A%0D%0ABusiness%3A%0D%0AWhat%20I%20need%3A%0D%0A"><i class="fa-solid fa-envelope"></i> Email us</a>
+<button type="button" class="btn btn-ghost" id="email-link" aria-expanded="false" aria-controls="compose"><i class="fa-solid fa-envelope"></i> Email us</button>
 </div>
-<p class="email-alt">Email app didn’t open? Use
-<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=domwebservices%40gmail.com&amp;su=Website%20enquiry%20from%20domwebsolutions.online&amp;body=Hello%20DomWebSolutions%2C%0D%0A%0D%0AI%20would%20like%20a%20quote%20for%20a%20website.%0D%0A%0D%0AName%3A%0D%0ABusiness%3A%0D%0AWhat%20I%20need%3A%0D%0A" target="_blank" rel="noopener noreferrer">Gmail</a>,
-<a href="https://outlook.live.com/mail/0/deeplink/compose?to=domwebservices%40gmail.com&amp;subject=Website%20enquiry%20from%20domwebsolutions.online&amp;body=Hello%20DomWebSolutions%2C%0D%0A%0D%0AI%20would%20like%20a%20quote%20for%20a%20website.%0D%0A%0D%0AName%3A%0D%0ABusiness%3A%0D%0AWhat%20I%20need%3A%0D%0A" target="_blank" rel="noopener noreferrer">Outlook</a> or
-<button type="button" id="copy-email" data-email="domwebservices@gmail.com">copy our address</button>
-(<span>domwebservices@gmail.com</span>).</p>
-<p id="copy-status" class="copy-status" role="status" aria-live="polite" hidden></p>
+<div id="compose" class="compose" hidden>
+<form id="compose-form" class="contact-form" novalidate>
+<button type="button" id="compose-close" class="email-form-close" aria-label="Close email panel">&times;</button>
+<h3>Write your message</h3>
+<label>Your name<input type="text" id="c-name" autocomplete="name" placeholder="e.g. Jane Wanjiku" required /></label>
+<label>What do you need?
+<select id="c-topic">
+<option>Website quote</option><option>Web application / full system</option><option>SEO and Google visibility</option><option>Website maintenance</option><option>Something else</option>
+</select></label>
+<label>Message<textarea id="c-message" rows="5" placeholder="Tell us about your business and what you need" required></textarea></label>
+<button type="submit" class="btn btn-wa" id="compose-send"><i class="fa-solid fa-envelope-open-text"></i> <span id="compose-send-label">Open in my email app</span></button>
+<p id="compose-status" class="compose-status" role="status" aria-live="polite"></p>
+</form>
+</div>
 </div></section>
 </main>
 <footer class="footer"><div class="container footer-content">
